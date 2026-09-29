@@ -34,24 +34,27 @@ function UserList() {
     localState;
 
   useEffect(() => {
-    fetchUsers().then((response) => {
-      const users = response.data;
-      const usersWithRoles = users.map((user) => ({
-        ...user,
-        role: roleMapping[user.id] || "None",
-      }));
-      localDispatch({
-        type: "update",
-        fields: {
-          userList: usersWithRoles,
-          filteredUserList: usersWithRoles,
-        },
-      });
-    });
+    fetchUsers()
+      .then((response) => {
+        const users = response.data;
+        const usersWithRoles = users.map((user) => ({
+          ...user,
+          role: roleMapping[user.id] || "None",
+        }));
+        localDispatch({
+          type: "update",
+          fields: {
+            userList: usersWithRoles,
+            filteredUserList: usersWithRoles,
+          },
+        });
+      })
+      .catch((err) => setError(err.message));
   }, []);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedRole, setSelectedRole] = useState("");
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const filteredUsers = userList.filter((user) => {
@@ -89,6 +92,10 @@ function UserList() {
   const handleRoleChange = (event) => {
     setSelectedRole(event.target.value);
   };
+
+  if (error !== "") {
+    <div>There was a problem louding the users.</div>;
+  }
 
   return (
     <div>
