@@ -1,16 +1,31 @@
-# React + Vite
+# React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Setup Instructions:
 
-Currently, two official plugins are available:
+- clone the repository in https://github.com/FrancesBarroga/user-directory
+- switch to main branch
+- run `npm install`
+- run `npm run dev` to run the application
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### Run Tests:
 
-## React Compiler
+- run `npm test`
+- note: tests were created with the help of AI even though some are failing I believe it was beciase I didn't have enough time to add proper selectors for the tests.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Library Choices
 
-## Expanding the ESLint configuration
+- tailwind
+- heroicons
+- vitest
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Architecture
+
+- For the architecture, I separated the api calls, UI and tests for easier navigation on where the files are located.
+
+### Improvements
+
+- if I had more time, I would improve the architecture by separating the re-usable components like the search and filter functions. Improve th the visial aspects of the app and polish the tests. As well as do the bonus features
+
+### Scalability
+
+- There should be server side filtering and the role should already be included in the returned data by the API.
