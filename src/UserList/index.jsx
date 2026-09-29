@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useEffect, useReducer } from "react";
+import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/16/solid";
 import { fetchUsers } from "../actions/Users";
 import { roleMapping } from "../actions/constants";
 
@@ -7,6 +8,7 @@ const initialState = {
   userList: [],
   user: {},
   showUserDetails: false,
+  selectedUser: "",
 };
 
 const componentReducer = (state, action) => {
@@ -27,7 +29,7 @@ function UserList() {
     initialState,
   );
 
-  const { userList, user, showUserDetails } = localState;
+  const { userList, user, showUserDetails, selectedUser } = localState;
 
   useEffect(() => {
     fetchUsers().then((response) => {
@@ -60,7 +62,7 @@ function UserList() {
             <>
               <tr>
                 <td>
-                  <div>{user.name}</div>
+                  <div class="m-4">{user.name}</div>
                 </td>
                 <td>
                   <div>{user.email}</div>
@@ -68,7 +70,39 @@ function UserList() {
                 <td>
                   <div>{user.role}</div>
                 </td>
+                <td>
+                  <button
+                    class="ml-3"
+                    onClick={() => {
+                      localDispatch({
+                        type: "update",
+                        fields: {
+                          showUserDetails: !showUserDetails,
+                          selectedUser: selectedUser === "" ? user.id : "",
+                        },
+                      });
+                    }}
+                  >
+                    {showUserDetails && user.id === selectedUser ? (
+                      <ChevronUpIcon width={20} />
+                    ) : (
+                      <ChevronDownIcon width={20} />
+                    )}
+                  </button>
+                </td>
               </tr>
+              {showUserDetails && user.id === selectedUser ? (
+                <div class="m-4">
+                  <div>Phone: {user.phone}</div>
+                  <div>Comapany: {user.company.name}</div>
+                  <div>
+                    Address: {user.address.suite}, {user.address.street},{" "}
+                    {user.address.city}
+                  </div>
+                </div>
+              ) : (
+                <></>
+              )}
             </>
           ))}
         </tbody>
